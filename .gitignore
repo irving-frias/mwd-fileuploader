@@ -1,0 +1,101 @@
+# =========================
+# Visual Studio Config
+# =========================
+.vs/
+obj/
+# =========================
+# Files in bin folders
+# =========================
+[Bb]in/*
+# =========================
+# Value Converters
+# =========================
+BuildPackage/artifacts/*
+BuildPackage/Package/*
+# =========================
+# Umbraco
+# =========================
+App_Data/umbraco.config
+App_Data/preview/*.config
+App_Data/TEMP/ClientDependency/
+App_Data/TEMP/DistCache/
+App_Data/TEMP/ExamineIndexes/
+App_Data/TEMP/PluginCache/*
+App_Data/TEMP/SEOChecker/
+App_Data/TEMP/Razor/
+App_Data/Temp/uSync/
+App_Data/umbraco.licensing.log.txt
+aspnet_client/
+App_Data/*.udt
+App_Data/NuGetBackup/*
+**/App_Data/Models/ood.flag
+App_Data/Logs/*
+Media/*
+# =========================
+# ImageProcessor DiskCache
+# =========================
+App_Data/cache/*
+# =========================
+#Grunt, Sass & Bower
+# =========================
+**/node_modules
+**/node_modules/*
+**/.sass-cache
+**/.sass-cache/*
+**/bower_components
+**/bower_components/*
+lib/*
+css/lib/*
+scripts/lib/*
+css/main.css
+css/main.css.map
+dist/
+# Ignore Umbraco content cache file
+!**/App_Data/umbraco.sdf
+# Don't ignore Umbraco packages (VisualStudio.gitignore mistakes this for a NuGet packages folder)
+# Make sure to include details from VisualStudio.gitignore BEFORE this
+!**/App_Data/[Pp]ackages/
+!**/[Uu]mbraco/[Dd]eveloper/[Pp]ackages
+
+# Ignore vim files.
+..gitignore.un~
+.gitignore~
+
+# Ignore Web.config file.
+Web.config
+
+## Added by 
+
+App_Data/TEMP/ExamineIndexes/*  
+App_Data/umbraco.config  
+App_Browsers/*
+App_Data/Cache/*
+App_Data/TEMP/*  
+App_Data/TEMP/ClientDependency/*  
+App_Data/courier/cache/*  
+App_Data/courier/revisions/*  
+App_Data/justDelete_*  
+App_Data/Preview/*  
+App_Data/_systemUmbracoIndexDontDelete/*
+App_Data/Logs/*  
+App_Data/courier/logs/*  
+App_Data/Elmah Logs/*  
+App_Data/umbraco.licensing.log.txt
+App_Data/Models
+packages/
+
+/[Uu]mbraco/
+/[Uu]mbraco_[Cc]lient/
+/App_Data/
+/App_Data/[Pp]review/
+/App_Data/TEMP/
+/App_Data/NuGetBackup/
+/App_Data/Umbraco.config
+/App_Data/cache/
+/config/uSyncBackOffice.Config
+/config/uSyncCore.Config
+/config/ClientDependency.Config
+
+# Visual Studio .csproj files
+*.csproj
+*.csproj.user
