@@ -92,8 +92,6 @@ packages/
 /App_Data/NuGetBackup/
 /App_Data/Umbraco.config
 /App_Data/cache/
-/config/uSyncBackOffice.Config
-/config/uSyncCore.Config
 /config/ClientDependency.Config
 
 # Visual Studio .csproj files
