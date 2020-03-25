@@ -1,0 +1,9 @@
+﻿@inherits UmbracoViewPage<Michel.Models.FileUploaderModel>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+@{
+    Html.RenderPartial("_UploadForm", Model);
+}

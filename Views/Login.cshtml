@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@using Michel.Controllers;
+
+@{
+	Layout = "Master.cshtml";
+}
+
+<div class="form-container">
+    <div class="form-title">
+        <h2>Please enter your user information</h2>
+    </div>
+
+    @{ Html.RenderAction("RenderLogin", "Member"); }
+
+</div>

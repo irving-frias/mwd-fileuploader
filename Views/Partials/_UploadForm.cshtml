@@ -1,0 +1,98 @@
+﻿@inherits UmbracoViewPage<Michel.Models.FileUploaderModel>
+@using Umbraco.Web
+
+
+@*@using (Html.BeginUmbracoForm("SubmitForm", "Upload", FormMethod.Post, new { enctype = "multipart/form-data", @class = "dropzone", id = "dropzone-form" })) {
+    @Html.AntiForgeryToken()
+    <a class="btn btn-primary" href="#" id="btnUpload">Upload file</a>
+  }*@
+<div id="dropzone-form" class="file-drop-area">
+  <span class="fake-btn">Choose files</span>
+  <span class="file-msg">or drag and drop files here</span>
+  <input type="file" id="uploadFile" name="file" multiple />
+</div>
+<div>
+  <div class="global-tags-wrapper">
+    <p class="tags-title">Enter tags for selected files:</p>
+    <input placeholder="Separate tags with a comma (tag1, tag2,...)" class="global-tags" type="text" name="global-tags" />
+    <a class="btn btn-primary" href="#" id="applyTags">Apply Tags</a>
+  </div>
+</div>
+<div class="input_fields_wrapper"></div>
+<a title="There are not files ready to upload." data-toggle="tooltip" class="btn btn-primary" href="#" id="btnUpload">Upload files</a>
+
+<h3><small> >Files </small></h3>
+                <hr>
+
+<div class="filter-bar-container">
+  <div class="filter-bar-wrapper">
+
+    @{
+      var tags = Umbraco.TagQuery.GetAllMediaTags();
+    }
+
+    <form method="get" id="filter-by-tag">
+      <div class="form-group">
+      <label for="tag">Filter by Tag:</label>
+      <select name="tag" id="tag" class="form-control">
+        <option disabled selected value>Select the tag</option>
+        @foreach(var tag in tags) {
+          <option value="@tag.Text">@tag.Text</option>
+        }
+      </select>
+      <button class="clear-filters"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-success" type="submit">Apply Filter</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<div class="files-container">
+  <div class="row files-wrapper">
+    @{
+
+      var filteredFiles = Model.getContentByFolderAndTag(@Request.QueryString["tag"]);
+
+      if (filteredFiles.Any())
+      {
+
+        foreach (var mediaItem in filteredFiles)
+        {
+          string extension = @mediaItem.GetPropertyValue("umbracoExtension").ToString();
+          string fileName = @mediaItem.Name.ToString();
+          var fileUrl = @mediaItem.GetPropertyValue("umbracoFile");
+
+          <div class="col-md-2 file-item-container">
+            <div class="file-item-wrapper">
+            <a href="@fileUrl">
+              <div class="file-item-image">
+                @switch(extension)
+                {
+                  case "png": <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                    break;
+                  case "pdf": <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                    break;
+                  default: <i class="fa fa-file-o" aria-hidden="true"></i>
+                    break;
+                }
+              </div>
+              <div class="file-item-description">
+                <strong>File name:</strong> 
+                <p>@fileName</p>
+              </div>
+            </a>
+            </div>
+          </div>
+        }
+      }
+    }
+    
+
+  </div>
+</div>
+
+<script src="/scripts/file_uploader_files_ui.js"></script>

@@ -1,0 +1,61 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Michel.Controllers;
+
+@{
+    var myUser = System.Web.Security.Membership.GetUser();
+    var mymember = Members.GetCurrentMember();
+
+}
+
+<header class="custom-navbar">
+    <div class="navbar-container">
+
+        <div class="brand-logo">
+            <a href="/">
+                <span>
+                    MWD
+                </span>
+            
+            </a>
+        </div>
+
+        <div class="login-or-logout">
+
+            @if (Umbraco.MemberIsLoggedOn())
+            {
+                using (Html.BeginUmbracoForm("SubmitLogout", "Member", System.Web.Mvc.FormMethod.Post, new { id = "logout" }))
+                {
+                    
+                    if (myUser != null)
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            Logout
+                        </button>
+
+                    } 
+                }   
+            } else {
+                <a href="/login-page">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Sign In
+                </a>
+            }
+
+        </div>
+
+        <div class="user-info">
+            <a href="/">
+                <span>
+                    @if (myUser != null) {
+
+                        <i class="fa fa-user" aria-hidden="true"></i> 
+                        @mymember.GetPropertyValue("fullName").ToString()
+                    }
+                </span>
+            </a>
+        </div>
+
+    </div>
+</header>

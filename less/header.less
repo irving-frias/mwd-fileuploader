@@ -1,0 +1,47 @@
+.custom-navbar {
+    
+    width: 100%;
+    background-color: black;
+    height: 50px;
+    border-radius: unset;
+    display: table;
+
+    & .navbar-container {
+        width: 1440px;
+        margin: 0 auto;
+        height: 100%;
+        color: white;
+
+        & div {
+            margin-top: 12px;
+            margin-right: 20px;
+        }
+
+        & a:link, a:hover, a:active, a:visited {
+            text-decoration: none;
+            color: white;
+        }
+
+        & .login-or-logout {
+            float: right;
+            font-size: 2rem;
+            
+            & button {
+                background-color: transparent;
+                border-style: none;
+            }
+        }
+
+        & .user-info {
+            float: right;
+            font-size: 2rem;
+            
+        }
+
+        & .brand-logo {
+            float: left;
+            font-size: 2rem;
+        }
+       
+    }
+}

@@ -1,0 +1,34 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Michel.Models.LoginUserModel>
+@using Umbraco.Web
+
+@if(!Umbraco.MemberIsLoggedOn())
+{
+    using (Html.BeginUmbracoForm("SubmitLogin", "Member", System.Web.Mvc.FormMethod.Post, new { id="login", @class="form" }))
+    {        
+        <div class="form-group">
+
+            <div class="form-group">
+                @Html.AntiForgeryToken()
+                @Html.LabelFor(m => m.Username)
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class="form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class="form-control" })
+
+                @Html.ValidationSummary()
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-default" name="login" type="submit">Login</button>
+
+            </div>
+
+        </div>   
+    }
+}
+else
+{
+    Response.Redirect("/");
+}

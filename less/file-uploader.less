@@ -1,0 +1,109 @@
+.files-container {
+    width: 90%;
+    height: 500px;
+    overflow: auto;
+    margin: 0 auto;
+
+    & .files-wrapper {
+        width: 90%;
+        height: 100%;
+        display: table;
+        margin: 50px auto 0 auto;
+        color: black;
+
+        & .file-item-container {
+            width: 200px;
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+
+            & .file-item-wrapper {
+
+                height: 100%;
+                width: 100%;
+
+                & a {
+                    display: table;
+                    width: inherit;
+
+                    &:link,
+                    &:active,
+                    &:hover,
+                    &:visited {
+                        text-decoration: none;
+                    }
+
+                    & strong {
+                        color: black;
+
+                    }
+
+                    & p {
+                        font-size: 12px;
+                        color: black;
+
+                    }
+                }
+
+                & .file-item-image {
+
+                    width: auto;
+                    font-size: 30px;
+                    border-bottom-style: none;
+                    border-top-style: solid;
+                    border-left-style: solid;
+                    border-right-style: solid;
+                    border-top-width: thin;
+                    border-left-width: thin;
+                    border-right-width: thin;
+                    border-color: #dbdbdb;
+                    text-align: center;
+                    height: 60px;
+                }
+
+                & .file-item-description {
+                    background-color: #dbdbdb;
+                    width: 100%;
+                    padding: 5px;
+                    border-bottom-right-radius: 10px;
+                    border-bottom-left-radius: 10px;
+
+                    & strong {
+                        font-size: 12px;
+                    }
+
+                    & p {
+                        font-size: 8px;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+.filter-bar-container {
+
+    width: 100%;
+
+    & .filter-bar-wrapper {
+        width: 250px;
+    }
+}
+
+.clear-filters {
+
+    display: none;
+    border-style: none;
+    background-color: #ffffff;
+    border-style: solid;
+    border-radius: 20px;
+}
+
+.form-group {
+    & select {
+        width: 200px;
+        display: inline;
+    }
+}

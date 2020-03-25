@@ -1,0 +1,23 @@
+{
+  "name": "mwd-file-uploader",
+  "version": "1.0.0",
+  "description": "none",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/T4K3R0/mwd-fileuploader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/T4K3R0/mwd-fileuploader/issues"
+  },
+  "homepage": "https://github.com/T4K3R0/mwd-fileuploader#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-less": "^4.0.1"
+  }
+}
