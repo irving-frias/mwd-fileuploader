@@ -1,6 +1,10 @@
 ﻿@inherits UmbracoViewPage<Michel.Models.FileUploaderModel>
 @using Umbraco.Web
 
+@{
+  var list = Umbraco.TypedMediaAtRoot();
+}
+
 
 @*@using (Html.BeginUmbracoForm("SubmitForm", "Upload", FormMethod.Post, new { enctype = "multipart/form-data", @class = "dropzone", id = "dropzone-form" })) {
     @Html.AntiForgeryToken()
@@ -18,6 +22,21 @@
     <a class="btn btn-primary" href="#" id="applyTags">Apply Tags</a>
   </div>
 </div>
+
+  @if (list.Any())
+  {
+  <div class="form-group">
+    <label for="folder">Select Destination Folder:</label>
+    <select name="folder" id="folder" class="form-control">
+      <option disabled selected value>Select folder</option>
+      @foreach (var media in list)
+      {
+      <option value="@media.Id">@media.Name</option>
+      }
+    </select>
+  </div>
+  }
+
 <div class="input_fields_wrapper"></div>
 <a title="There are not files ready to upload." data-toggle="tooltip" class="btn btn-primary" href="#" id="btnUpload">Upload files</a>
 
