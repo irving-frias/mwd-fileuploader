@@ -106,7 +106,12 @@ body .section.section--themed {
     display: inline-block;
     margin-right: 10px;
     font-weight: 600;
+    margin-left: 10px;
   }
+  span.select2-selection.select2-selection--multiple {
+    border-radius: 0px;
+  }
+
   .input_fields_wrapper .item.error {
     background-color: #f8dedf;
   }

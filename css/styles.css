@@ -172,6 +172,13 @@ main.main-content .main-content-wrapper .body-content .h2-sample span {
   width: 200px;
   display: inline;
 }
+.input_fields_wrapper .file-tags {
+  display: inline;
+  width: 50%;
+}
+.input_fields_wrapper .tags-wrapper {
+  width: 100%;
+}
 html,
 body {
   margin: 0;

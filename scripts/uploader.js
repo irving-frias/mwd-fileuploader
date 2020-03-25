@@ -5,10 +5,18 @@ var BYTES_PER_CHUNK = 0;
 var totalLoaded = 0;
 var x = 1;
 var upFilesCount = 0;
+var loadingTags = false;
+var tagOptions = '';
+getTagsFromBackOffice();
 
 $(document).ready(function () {
   // Enables tooltip for all elements that have tooltip.
   $('[data-toggle="tooltip"]').tooltip();
+
+  if (loadingTags) {
+    $('.body-content').hide();
+
+  }
 
   $('#applyTags').click(function (e) {
     e.preventDefault();
@@ -26,23 +34,42 @@ $(document).ready(function () {
   });
 
   $('#btnUpload').click(function (e) {
+
     e.preventDefault();
     var filesNumber = $('#uploadFile')[0].files;
     var keywords_fields = $('.input_fields_wrapper .item.pending');
+
     $(keywords_fields).each(function () {
+
       var file_name = $(this).find('.keywords').attr('data-file');
       var Tags = $(this).find('.keywords').val();
-      if (Tags != '') {
+      // var optionTag = $(this).find('.file-tags').val();
+      var tagsFromSelect2 = $('.js-example-basic-multiple').select2('data');
+
+      if (Tags != '' || tagsFromSelect2.length > 0) {
+        // if (Tags != '' ) {
+
+        var tagsFromSelect2 = $('.js-example-basic-multiple').select2('data');
+        var keywords = Tags == '' ? [] : Tags.split(',');
+
+        tagsFromSelect2.forEach(e => {
+          keywords.push(e.text);
+        });
+
         $(this).removeClass('error');
-        var keywords = Tags.split(',');
+        
+        // Obtener los valores del select y luego mandarlos como string separados por coma
         UpdateFile(file_name, keywords);
-      }
-      else {
+
+      } else {
+
         $(this).addClass('error');
         $(this).find('span.required').remove();
         $(this).append('<span class="required">Please enter at least one tag.</span>');
+
       }
     });
+
   });
 
   $('.input_fields_wrapper').on("click", ".remove_field", function (e) {
@@ -65,8 +92,7 @@ function unselectFiles() {
       $(this).parent().removeClass('error');
       $(this).parent().addClass('ready');
       $(this).parent().find('span.required').remove();
-    }
-    else {
+    } else {
       $(this).parent().removeClass('ready');
     }
     filesReady();
@@ -129,16 +155,27 @@ $fileInput.on('change', function () {
 
   $(filesNumber).each(function () {
     $(wrapper).append('<div class="item pending"><a href="#" class="remove_field">Remove</a><div class="file-label">File: </div><div class="file">' + this.name +
-      '</div><div class="tags-label">Tags: </div><input placeholder="Separate tags with a comma (Tag1, Tag2,...)" ' +
-      'class="keywords" type="text" name="keywords" success-part="0" total-parts="0" data-file="' + this.name +
-      '" required/><div class="progress-status"><div></div></div><div class="select-wrapper"><span>Select File: </span><input class="select-file" type="checkbox"/></div></div>');
+      '</div><div class="tags-label">Tags: </div>' +
+      // '<div class="tags-wrapper">' +
+      '<input placeholder="Separate tags with a comma (Tag1, Tag2,...)" class="keywords" type="text" name="keywords" success-part="0" total-parts="0" data-file="' + this.name + '" required/>' +
+      '<label class="tags-label">Or select already created tags: ' +
+      '<select class="js-example-basic-multiple file-tags" name="states[]" multiple="multiple">' +
+      tagOptions +
+      '</select></label>' +
+      // '</div>' +
+      '<div class="progress-status"><div></div></div><div class="select-wrapper"><span>Select File: </span><input class="select-file" type="checkbox"/></div></div>');
     x++;
     UploadFile(this);
 
   });
+  $('.js-example-basic-multiple').select2({
+    placeholder: 'Select an option'
+  });
+
   selectFiles();
   unselectFiles();
 });
+
 function UploadFile(TargetFile) {
   // create array to store the buffer chunks
   var FileChunk = [];
@@ -203,8 +240,7 @@ function UploadFileChunk(Chunk, FilePartName, originalName) {
     success: function (data) {
       updateStatus(data.file);
     },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-    }
+    error: function (XMLHttpRequest, textStatus, errorThrown) {}
   });
 }
 
@@ -223,7 +259,6 @@ function completeHandler(event) {
 function UpdateFile(file_name, Tags) {
   var FD = new FormData();
   // Checks if name input has value.
-
   var json_array = JSON.stringify(Tags);
   FD.append('Tags', Tags);
   FD.append('Name', file_name);
@@ -237,8 +272,7 @@ function UpdateFile(file_name, Tags) {
     success: function (data) {
       createdFiles(data.file);
     },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-    }
+    error: function (XMLHttpRequest, textStatus, errorThrown) {}
   });
 }
 
@@ -268,8 +302,9 @@ function updateStatus(File) {
 
 function progress(percent, $element) {
   var progressBarWidth = percent * $element.width() / 100;
-  $element.find('div').animate(
-    { width: progressBarWidth },
+  $element.find('div').animate({
+      width: progressBarWidth
+    },
     0,
     'swing',
     function () {
@@ -315,9 +350,33 @@ function filesReady() {
   if (files_ready > 0) {
     title = "There are " + files_ready + " files to upload.";
     $('#btnUpload').addClass('enabled');
-  }
-  else {
+  } else {
     $('#btnUpload').removeClass('enabled');
   }
   $('#btnUpload').attr("data-original-title", title);
+}
+
+function getTagsFromBackOffice() {
+  loadingTags = true;
+
+  $.ajax({
+    url: '/umbraco/Api/GetAllTags/GetCurrentTags',
+    success: function (res) {
+      console.log(res);
+      res.forEach(e => {
+        tagOptions += '<option value="' + e.text + '">' + e.text + '</option>'
+      });
+
+      loadingTags = false;
+    },
+    error: function (error) {
+      loadingTags = false;
+    },
+    complete: function (msg) {
+      loadingTags = false;
+      $('.body-content').css('display', 'inline');
+
+    }
+
+  });
 }
