@@ -6,10 +6,23 @@ var totalLoaded = 0;
 var x = 1;
 var upFilesCount = 0;
 var loadingTags = false;
+var creatingFolder = false;
 var tagOptions = '';
 getTagsFromBackOffice();
 
 $(document).ready(function () {
+
+  var submit_folder = $('body').find('#create-folder')[0];
+  var input_content = $(submit_folder).find('.form-group input#folder');
+
+  $(submit_folder).on('submit', function(e) {
+    if ($(input_content).val() != '') {
+      createFolder($(input_content).val());
+    } else {
+      e.preventDefault();
+    }
+  });
+
   // Enables tooltip for all elements that have tooltip.
   $('[data-toggle="tooltip"]').tooltip();
 
@@ -378,5 +391,27 @@ function getTagsFromBackOffice() {
 
     }
 
+  });
+}
+
+function createFolder(name) {
+  creatingFolder = true;
+
+  $.ajax({
+    method: 'POST',
+    url: '/umbraco/Api/createFolder/SetFolder',
+    data: {
+      FolderName: name
+    },
+    success: function (res) {
+      console.log(res);
+      creatingFolder = false;
+    },
+    error: function (error) {
+      creatingFolder = false;
+    },
+    complete: function (msg) {
+      creatingFolder = false;
+    }
   });
 }
