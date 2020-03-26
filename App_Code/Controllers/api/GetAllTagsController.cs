@@ -1,13 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Web.Http;
 using Umbraco.Web;
-using Umbraco.Web.Models;
 using Umbraco.Web.WebApi;
-using System.ComponentModel.DataAnnotations;
-using Michel.Models;
-using Umbraco.Core.Services;
 
 public class GetAllTagsController : UmbracoApiController
 {

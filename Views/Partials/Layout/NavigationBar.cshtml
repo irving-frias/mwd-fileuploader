@@ -25,7 +25,8 @@
             {
                 using (Html.BeginUmbracoForm("SubmitLogout", "Member", System.Web.Mvc.FormMethod.Post, new { id = "logout" }))
                 {
-                    
+                    @Html.AntiForgeryToken()
+
                     if (myUser != null)
                     {
                         @Html.AntiForgeryToken()

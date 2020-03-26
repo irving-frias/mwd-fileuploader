@@ -5,10 +5,11 @@
 {
     using (Html.BeginUmbracoForm("SubmitLogin", "Member", System.Web.Mvc.FormMethod.Post, new { id="login", @class="form" }))
     {        
+        @Html.AntiForgeryToken()
+
         <div class="form-group">
 
             <div class="form-group">
-                @Html.AntiForgeryToken()
                 @Html.LabelFor(m => m.Username)
                 @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class="form-control" })
             </div>
