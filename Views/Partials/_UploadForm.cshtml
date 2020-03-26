@@ -75,7 +75,6 @@
     @{
 
       var filteredFiles = Model.getContentByFolderAndTag(@Request.QueryString["tag"]);
-      var mediaService = ApplicationContext.Current.Services.MediaService;
 
       if (filteredFiles.Any())
       {
