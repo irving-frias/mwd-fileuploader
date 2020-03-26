@@ -75,37 +75,46 @@
     @{
 
       var filteredFiles = Model.getContentByFolderAndTag(@Request.QueryString["tag"]);
+      var mediaService = ApplicationContext.Current.Services.MediaService;
 
       if (filteredFiles.Any())
       {
 
         foreach (var mediaItem in filteredFiles)
         {
-          string extension = @mediaItem.GetPropertyValue("umbracoExtension").ToString();
-          string fileName = @mediaItem.Name.ToString();
-          var fileUrl = @mediaItem.GetPropertyValue("umbracoFile");
 
-          <div class="col-md-2 file-item-container">
-            <div class="file-item-wrapper">
-            <a href="@fileUrl">
-              <div class="file-item-image">
-                @switch(extension)
-                {
-                  case "png": <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                    break;
-                  case "pdf": <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                    break;
-                  default: <i class="fa fa-file-o" aria-hidden="true"></i>
-                    break;
-                }
+          if (@mediaItem.HasProperty("umbracoExtension"))
+          {
+            
+            string extension = @mediaItem.GetPropertyValue("umbracoExtension").ToString();
+            string fileName = @mediaItem.Name.ToString();
+            var fileUrl = @mediaItem.GetPropertyValue("umbracoFile");
+            
+            <div class="col-md-2 file-item-container">
+              <div class="file-item-wrapper">
+              <a href="@fileUrl">
+                <div class="file-item-image">
+                  @switch(extension)
+                  {
+                    case "png": <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                      break;
+                    case "pdf": <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                      break;
+                    default: <i class="fa fa-file-o" aria-hidden="true"></i>
+                      break;
+                  }
+                </div>
+                <div class="file-item-description">
+                  <strong>File name:</strong> 
+                  <p>@fileName</p>
+                </div>
+              </a>
               </div>
-              <div class="file-item-description">
-                <strong>File name:</strong> 
-                <p>@fileName</p>
-              </div>
-            </a>
             </div>
-          </div>
+
+          }
+          
+          
         }
       }
     }
