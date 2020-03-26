@@ -362,7 +362,6 @@ function getTagsFromBackOffice() {
   $.ajax({
     url: '/umbraco/Api/GetAllTags/GetCurrentTags',
     success: function (res) {
-      console.log(res);
       res.forEach(e => {
         tagOptions += '<option value="' + e.text + '">' + e.text + '</option>'
       });
