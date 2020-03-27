@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/T4K3R0/mwd-fileuploader#readme",
   "dependencies": {
+    "@types/jquery": "^3.3.34",
     "gulp": "^4.0.2",
     "gulp-less": "^4.0.1"
   }
