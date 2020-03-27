@@ -8,18 +8,33 @@ var upFilesCount = 0;
 var loadingTags = false;
 var creatingFolder = false;
 var tagOptions = '';
+var optionFolderAppend =  $('body').find('.select-folder #folder')[0];
 getTagsFromBackOffice();
+getFolder();
 
 $(document).ready(function () {
 
   var submit_folder = $('body').find('#create-folder')[0];
   var input_content = $(submit_folder).find('.form-group input#folder');
+  var success = $(submit_folder).find('.success');
+  var danger = $(submit_folder).find('.danger');
 
   $(submit_folder).on('submit', function(e) {
     if ($(input_content).val() != '') {
       createFolder($(input_content).val());
+      e.preventDefault();
+
+      $(input_content).val('');
+      $(success).show();
+      setTimeout(function(){
+        $(success).hide();
+      }, 2000);
     } else {
       e.preventDefault();
+      $(danger).show();
+      setTimeout(function(){
+        $(danger).hide();
+      }, 2000);
     }
   });
 
@@ -393,6 +408,31 @@ function getTagsFromBackOffice() {
   });
 }
 
+function getFolder() {
+  loadingFolders = true;
+  var optionFolder = '';
+
+  $.ajax({
+    method: 'GET',
+    url: '/umbraco/Api/GetAllFolders/GetCurrentFolders',
+    success: function (res) {
+      for (var x = 0; x < res.length; x++) {
+        optionFolder += '<option value=' + res[x].ContentId + '>' + res[x].ContentName + '</option>';
+      }
+
+      $(optionFolderAppend).append(optionFolder);
+      loadingFolders = false;
+    },
+    error: function (error) {
+      loadingFolders = false;
+    },
+    complete: function (msg) {
+      loadingFolders = false;
+    }
+
+  });
+}
+
 function createFolder(name) {
   creatingFolder = true;
 
@@ -404,6 +444,7 @@ function createFolder(name) {
     },
     success: function (res) {
       console.log(res);
+      getFolder();
       creatingFolder = false;
     },
     error: function (error) {
