@@ -16,8 +16,9 @@
   <label for="folder">Create Folder (Optional)</label>
   <input type="text" name="folderName" id="folder" class="form-control" placeholder="Enter name of folder..">
   </div>
-
-  <div class="form-group">
+  <div class="bg-success success" style="display: none;">Folder has been created!</div>
+  <div class="bg-danger danger" style="display: none;">Please, type at least 1 word!</div>
+  <div class="form-group submit-folder">
     <button class="btn btn-success" type="submit">Create</button>
   </div>
 </form>
@@ -40,10 +41,6 @@
     <label for="folder">Select Destination Folder:</label>
     <select name="folder" id="folder" class="form-control">
       <option disabled selected value>Select folder</option>
-      @foreach (var media in list)
-      {
-      <option value="@media.Id">@media.Name</option>
-      }
     </select>
   </div>
   }
