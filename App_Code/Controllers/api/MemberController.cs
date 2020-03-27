@@ -53,7 +53,8 @@ namespace Michel.Controllers
             TempData.Clear();
             Session.Clear();
             FormsAuthentication.SignOut();
-            return RedirectToCurrentUmbracoPage();
+
+            return Redirect("/login-page/");
         }
     }
 }
