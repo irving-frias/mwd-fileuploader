@@ -10,6 +10,17 @@
     @Html.AntiForgeryToken()
     <a class="btn btn-primary" href="#" id="btnUpload">Upload file</a>
   }*@
+
+<form method="post" id="create-folder">
+  <div class="form-group">
+  <label for="folder">Create Folder (Optional)</label>
+  <input type="text" name="folderName" id="folder" class="form-control" placeholder="Enter name of folder..">
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-success" type="submit">Create</button>
+  </div>
+</form>
 <div id="dropzone-form" class="file-drop-area">
   <span class="fake-btn">Choose files</span>
   <span class="file-msg">or drag and drop files here</span>
@@ -25,7 +36,7 @@
 
   @if (list.Any())
   {
-  <div class="form-group">
+  <div class="form-group select-folder">
     <label for="folder">Select Destination Folder:</label>
     <select name="folder" id="folder" class="form-control">
       <option disabled selected value>Select folder</option>
