@@ -417,10 +417,15 @@ function getFolder() {
     url: '/umbraco/Api/GetAllFolders/GetCurrentFolders',
     success: function (res) {
       for (var x = 0; x < res.length; x++) {
-        optionFolder += '<option value=' + res[x].ContentId + '>' + res[x].ContentName + '</option>';
+        optionFolder += '<option class="option-folder" value=' + res[x].ContentId + '>' + res[x].ContentName + '</option>';
       }
 
       $(optionFolderAppend).append(optionFolder);
+      $(optionFolderAppend).find('.option-folder').each(function (index, value) {
+        $(value)[0].remove();
+      });
+      $(optionFolderAppend).append(optionFolder);
+
       loadingFolders = false;
     },
     error: function (error) {
@@ -443,7 +448,6 @@ function createFolder(name) {
       FolderName: name
     },
     success: function (res) {
-      console.log(res);
       getFolder();
       creatingFolder = false;
     },
