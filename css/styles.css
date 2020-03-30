@@ -387,6 +387,7 @@ main.main-content .main-content-wrapper .current-page + * {
   -o-border-radius: 10px;
   border-radius: 10px;
   max-width: 20%;
+  width: 100%;
   float: left;
   padding: 0 7px;
 }
