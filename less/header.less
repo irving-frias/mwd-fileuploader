@@ -1,21 +1,17 @@
 .custom-navbar {
     
     width: 100%;
-    background-color: black;
-    height: 50px;
+    background-color: #1c2240;
+    height: 80px;
     border-radius: unset;
-    display: table;
+    margin-bottom: 70px;
 
     & .navbar-container {
-        width: 1440px;
+        max-width: 1110px;
         margin: 0 auto;
         height: 100%;
         color: white;
-
-        & div {
-            margin-top: 12px;
-            margin-right: 20px;
-        }
+        padding: 0 15px;
 
         & a:link, a:hover, a:active, a:visited {
             text-decoration: none;
@@ -23,24 +19,35 @@
         }
 
         & .login-or-logout {
+            font-family: 'montserrat-semibold';
+            line-height: 80px;
             float: right;
-            font-size: 2rem;
+            font-size: 1.8rem;
+            font-weight: 600;
             
             & button {
                 background-color: transparent;
                 border-style: none;
+                padding: 0;
             }
         }
 
         & .user-info {
+            font-family: 'montserrat-semibold';
+            line-height: 80px;
+            margin-right: 93px;
             float: right;
-            font-size: 2rem;
+            font-size: 1.8rem;
+            font-weight: 600;
             
         }
 
         & .brand-logo {
+            font-family: 'montserrat-bold';
+            line-height: 80px;
             float: left;
-            font-size: 2rem;
+            .rem(40);
+            font-weight: bold;
         }
        
     }

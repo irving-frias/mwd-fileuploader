@@ -9,11 +9,12 @@ var loadingTags = false;
 var creatingFolder = false;
 var tagOptions = '';
 var optionFolderAppend =  $('body').find('.select-folder #folder')[0];
+var titlePage = $('body').find('.current-page .t-h1').width();
+var linePage = $('body').find('.current-page .line')[0];
 getTagsFromBackOffice();
 getFolder();
 
 $(document).ready(function () {
-
   var submit_folder = $('body').find('#create-folder')[0];
   var input_content = $(submit_folder).find('.form-group input#folder');
   var success = $(submit_folder).find('.success');
@@ -42,7 +43,7 @@ $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
 
   if (loadingTags) {
-    $('.body-content').hide();
+    //$('.body-content').hide();
 
   }
 
@@ -401,7 +402,7 @@ function getTagsFromBackOffice() {
     },
     complete: function (msg) {
       loadingTags = false;
-      $('.body-content').css('display', 'inline');
+     // $('.body-content').css('display', 'inline');
 
     }
 

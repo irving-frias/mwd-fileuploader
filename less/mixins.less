@@ -1,0 +1,39 @@
+.rem(@size) {
+  @pxValue: ceil(@size);
+  @remValue: (@size/10);
+  font-size: ~"@{pxValue}px";
+  font-size: ~"@{remValue}rem";
+}
+
+.rem(@size, @lineheight) {
+  @pxValue: ceil(@size);
+  @remValue: (@size/10);
+  font-size: ~"@{pxValue}px";
+  font-size: ~"@{remValue}rem";
+  @lineHeightValue: @lineheight/@size*100;
+  line-height: ~"@{lineHeightValue}%"
+}
+
+.transform(@string){
+  -webkit-transform: @string;
+  -moz-transform: @string;
+  -ms-transform: @string;
+  -o-transform: @string;
+  transform: @string;
+}
+
+.transformTwo(@stringa, @stringb){
+  -webkit-transform: @stringa @stringb;
+  -moz-transform: @stringa @stringb;
+  -ms-transform: @stringa @stringb;
+  -o-transform: @stringa @stringb;
+  transform: @stringa @stringb;
+}
+
+.border-radius(@string){
+  -webkit-border-radius: @string;
+  -moz-border-radius: @string;
+  -ms-border-radius: @string;
+  -o-border-radius: @string;
+  border-radius: @string;
+}
