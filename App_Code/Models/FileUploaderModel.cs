@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Umbraco.Core.Models;
-using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Models;
 using System.Linq;
+using Umbraco.Core;
 
 namespace Michel.Models
 {
@@ -21,14 +20,25 @@ namespace Michel.Models
             if (!string.IsNullOrEmpty(tag))
             {
 
-                var result = umbracoHelper.TagQuery.GetMediaByTag(tag).Where(x => x.Parent.Id == 1068);
+                var result = umbracoHelper.TagQuery.GetMediaByTag(tag).Where(x => x.ContentType.Alias == "customFile");
 
                 return result ?? new IPublishedContent[0];
             }
 
             else
             {
-                return umbracoHelper.TypedMedia(1068).Children;
+                var content = umbracoHelper.TypedMediaAtRoot().Where(x => x.ContentType.Alias == "Folder");
+                List<IPublishedContent> pc = new List<IPublishedContent>();
+
+                foreach (var item in content)
+                {
+                    foreach (var child in item.Children)
+                    {
+                        pc.Add(child);
+                    }
+
+                }
+                return pc;
             }
         }
     }

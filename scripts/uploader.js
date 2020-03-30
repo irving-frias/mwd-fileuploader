@@ -8,7 +8,7 @@ var upFilesCount = 0;
 var loadingTags = false;
 var creatingFolder = false;
 var tagOptions = '';
-var optionFolderAppend =  $('body').find('.select-folder #folder')[0];
+var optionFolderAppend = $('body').find('.select-folder #destination-folder')[0];
 getTagsFromBackOffice();
 getFolder();
 
@@ -19,20 +19,20 @@ $(document).ready(function () {
   var success = $(submit_folder).find('.success');
   var danger = $(submit_folder).find('.danger');
 
-  $(submit_folder).on('submit', function(e) {
+  $(submit_folder).on('submit', function (e) {
     if ($(input_content).val() != '') {
       createFolder($(input_content).val());
       e.preventDefault();
 
       $(input_content).val('');
       $(success).show();
-      setTimeout(function(){
+      setTimeout(function () {
         $(success).hide();
       }, 2000);
     } else {
       e.preventDefault();
       $(danger).show();
-      setTimeout(function(){
+      setTimeout(function () {
         $(danger).hide();
       }, 2000);
     }
@@ -85,9 +85,9 @@ $(document).ready(function () {
         });
 
         $(this).removeClass('error');
-        
+
         // Obtener los valores del select y luego mandarlos como string separados por coma
-        UpdateFile(file_name, keywords);
+        UpdateFile(file_name, keywords, folder);
 
       } else {
 
@@ -285,23 +285,37 @@ function completeHandler(event) {
 }
 
 function UpdateFile(file_name, Tags) {
-  var FD = new FormData();
-  // Checks if name input has value.
-  var json_array = JSON.stringify(Tags);
-  FD.append('Tags', Tags);
-  FD.append('Name', file_name);
+  var destinationFolder = $('#destination-folder').val();
 
-  $.ajax({
-    type: "POST",
-    url: "/umbraco/Surface/Update/UpdateFile",
-    contentType: false,
-    processData: false,
-    data: FD,
-    success: function (data) {
-      createdFiles(data.file);
-    },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {}
-  });
+  if (destinationFolder !== '' && destinationFolder !== null) {
+    var FD = new FormData();
+    // Checks if name input has value.
+    var json_array = JSON.stringify(Tags);
+    FD.append('Tags', Tags);
+    FD.append('Name', file_name);
+    FD.append('FolderId', destinationFolder);
+
+    $.ajax({
+      type: "POST",
+      url: "/umbraco/Surface/Update/UpdateFile",
+      contentType: false,
+      processData: false,
+      data: FD,
+      success: function (data) {
+        createdFiles(data.file);
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {}
+    });
+  } else {
+
+    Swal.fire({
+      title: 'Error!',
+      text: 'You must select the destination folder',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    })
+  }
+
 }
 
 function addStatus(File, totalParts) {
@@ -417,7 +431,7 @@ function getFolder() {
     url: '/umbraco/Api/GetAllFolders/GetCurrentFolders',
     success: function (res) {
       for (var x = 0; x < res.length; x++) {
-        optionFolder += '<option class="option-folder" value=' + res[x].ContentId + '>' + res[x].ContentName + '</option>';
+        optionFolder += '<option class="option-folder" value="' + res[x].ContentId + '">' + res[x].ContentName + '</option>';
       }
 
       $(optionFolderAppend).append(optionFolder);

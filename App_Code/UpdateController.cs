@@ -12,8 +12,10 @@ namespace UpdateController
         public ActionResult UpdateFile()
         {
             var tags = Request.Form["Tags"];
-            string[] tagsArray = { };
+            var folderId = Request.Form["FolderId"];
             var file_name = Request.Form["Name"];
+
+            string[] tagsArray = { };
             if (tags.Length > 0)
             {
                 tagsArray = tags.Split(',');
@@ -25,7 +27,7 @@ namespace UpdateController
             {
                 // merge each file chunk back into one contiguous file stream
                 UploadController.UploadController UC = new UploadController.UploadController();
-                UC.CreateFile(FS, tagsArray, file_name);
+                UC.CreateFile(FS, tagsArray, file_name, int.Parse(folderId));
                 // Removes file from temp folder.
                 System.IO.File.Delete(path);
             }

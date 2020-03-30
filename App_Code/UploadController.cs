@@ -12,7 +12,7 @@ namespace UploadController
     {
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public void CreateFile(FileStream file, string[] tags, string Name)
+        public void CreateFile(FileStream file, string[] tags, string Name, int folderId)
         {
 
             if (ModelState.IsValid)
@@ -31,7 +31,7 @@ namespace UploadController
                 if (file != null && file.Length > 0)
                 {
                     // 1086 is the id of the Files folder where the files will be uploaded.
-                    var mediaImage = ms.CreateMedia(Name, 1054, "CustomFile");
+                    var mediaImage = ms.CreateMedia(Name, folderId, "CustomFile");
                     var optionalTagGroup = "default";
 
                     mediaImage.SetValue("umbracoFile", Name, file);

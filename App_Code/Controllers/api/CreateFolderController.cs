@@ -16,6 +16,9 @@ public class CreateFolderController : UmbracoApiController
   [HttpPost]
     public string[] SetFolder(CreateFolderModel model)
     {
+        // another way to get POST params in a FormData
+        // var file_name = Request.Form["Name"];
+
         if (ApplicationContext.Current != null)
         {
             var ms = ApplicationContext.Current.Services.MediaService;
