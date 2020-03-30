@@ -8,13 +8,12 @@ var upFilesCount = 0;
 var loadingTags = false;
 var creatingFolder = false;
 var tagOptions = '';
-var optionFolderAppend = $('body').find('.select-folder #destination-folder')[0];
-var titlePage = $('body').find('.current-page .t-h1').width();
-var linePage = $('body').find('.current-page .line')[0];
+var optionFolderAppend =  $('body').find('.select-folder #folder')[0];
 getTagsFromBackOffice();
 getFolder();
 
 $(document).ready(function () {
+  offsetLine();
   var submit_folder = $('body').find('#create-folder')[0];
   var input_content = $(submit_folder).find('.form-group input#folder');
   var success = $(submit_folder).find('.success');
@@ -111,6 +110,17 @@ $(document).ready(function () {
     }
   });
 });
+
+function offsetLine () {
+  setTimeout(function(){
+    var titlePage = $('body').find('.current-page .t-h1').width();
+    var linePage = $('body').find('.current-page .line')[0];
+    var linePageWidth = $(linePage).width();
+    var offsetLine = linePageWidth - titlePage;
+
+    $(linePage).css({"transform" : "translateX(" + (offsetLine * -1) + "px)"});
+  }, 100);
+}
 
 function unselectFiles() {
   $('.keywords').unbind('blur');
