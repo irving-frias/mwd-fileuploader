@@ -12,9 +12,9 @@
   }*@
 
 <form method="post" id="create-folder">
-  <div class="form-group">
-  <label for="folder">Create Folder (Optional)</label>
-  <input type="text" name="folderName" id="folder" class="form-control" placeholder="Enter name of folder..">
+  <div class="form-group content">
+  <label for="folder">Create Folder <span class="optional">(Optional)</span></label>
+  <input type="text" name="folderName" id="folder" class="form-control" placeholder="Enter Name of the Folder">
   </div>
   <div class="bg-success success" style="display: none;">Folder has been created!</div>
   <div class="bg-danger danger" style="display: none;">Please, type at least 1 word!</div>
@@ -46,10 +46,12 @@
   }
 
 <div class="input_fields_wrapper"></div>
-<a title="There are not files ready to upload." data-toggle="tooltip" class="btn btn-primary" href="#" id="btnUpload">Upload files</a>
+<a title="There are not files ready to upload." data-toggle="tooltip" class="btn btn-primary btn-uploader" href="#" id="btnUpload">Upload files</a>
 
-<h3><small> >Files </small></h3>
-                <hr>
+<div class="filter-tags">
+  <div class="title">
+    <h2 class="t-h2">Files</h2>
+  </div>
 
 <div class="filter-bar-container">
   <div class="filter-bar-wrapper">
@@ -59,7 +61,7 @@
     }
 
     <form method="get" id="filter-by-tag">
-      <div class="form-group">
+      <div class="form-group content">
       <label for="tag">Filter by Tag:</label>
       <select name="tag" id="tag" class="form-control">
         <option disabled selected value>Select the tag</option>
@@ -70,7 +72,7 @@
       <button class="clear-filters"><i class="fa fa-times" aria-hidden="true"></i></button>
       </div>
 
-      <div class="form-group">
+      <div class="form-group btn-upload">
         <button class="btn btn-success" type="submit">Apply Filter</button>
       </div>
     </form>
@@ -78,8 +80,8 @@
   </div>
 </div>
 
-<div class="files-container">
-  <div class="row files-wrapper">
+<div class="row files-container">
+  <div class="files-wrapper">
     @{
 
       var filteredFiles = Model.getContentByFolderAndTag(@Request.QueryString["tag"]);
@@ -92,12 +94,11 @@
 
           if (@mediaItem.HasProperty("umbracoExtension"))
           {
-            
             string extension = @mediaItem.GetPropertyValue("umbracoExtension").ToString();
             string fileName = @mediaItem.Name.ToString();
             var fileUrl = @mediaItem.GetPropertyValue("umbracoFile");
             
-            <div class="col-md-2 file-item-container">
+            <div class="file-item-container">
               <div class="file-item-wrapper">
               <a href="@fileUrl">
                 <div class="file-item-image">
@@ -112,8 +113,8 @@
                   }
                 </div>
                 <div class="file-item-description">
-                  <strong>File name:</strong> 
-                  <p>@fileName</p>
+                  <div class="t-h3 title">File name</div> 
+                  <p class="description">@fileName</p>
                 </div>
               </a>
               </div>
@@ -125,9 +126,8 @@
         }
       }
     }
-    
-
   </div>
+</div>
 </div>
 
 <script src="/scripts/file_uploader_files_ui.js"></script>
