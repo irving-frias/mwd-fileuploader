@@ -10,13 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MWD</title>
 
-    <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="@Url.Content("~/css/fonts/montserrat/fonts.css")" />
     <link rel="stylesheet" href="@Url.Content("~/css/bootstrap.min.css")" />
     <link rel="stylesheet" href="@Url.Content("~/css/dropzone.css")" />
     <link rel="stylesheet" href="@Url.Content("~/css/dropper.css")" />
     <link rel="stylesheet" href="@Url.Content("~/css/bootstrap-theme.min.css")" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
     <script src="@Url.Content("~/scripts/jquery-3.4.1.min.js")"></script>
@@ -26,8 +27,8 @@
     <main class="main-content">
         <div class="main-content-wrapper">
             <div class="current-page">
-                <h3><small> >@CurrentPage.Name </small></h3>
-                <hr>
+                <h1 class="t-h1">@CurrentPage.Name</h1>
+                <div class="line"></div>
             </div>
 
             <div class="body-content">
